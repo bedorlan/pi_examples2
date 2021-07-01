@@ -4,20 +4,14 @@ cnn = mysql.connector.connect(host = "localhost",
                               passwd = "pilar", 
                               database = "database1")
 
-
 def consultar_personas(): 
     cur = cnn.cursor() 
     cur.execute("select * from personas") 
     datos = cur.fetchall()
-     
-    
+      
     for fila in datos: 
         print(fila)
-        
-        
-        
-        
-        
+           
 def insertar_nueva_persona(nombre, cedula, telefono):
     cur = cnn.cursor() 
     sql = """insert into personas (nombre,cedula,telefono)
@@ -25,10 +19,7 @@ def insertar_nueva_persona(nombre, cedula, telefono):
     datos = (nombre, cedula, telefono)
     cur.execute(sql, datos) 
     cnn.commit()
-    
-      
-    
-     
+   
 def crear_menu():
     while True:
         
@@ -46,5 +37,4 @@ def crear_menu():
             
         if menu == 0:
             break
-
 crear_menu()
