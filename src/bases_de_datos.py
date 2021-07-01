@@ -3,7 +3,6 @@ cnn = mysql.connector.connect(host = "localhost",
                               user = "pilar", 
                               passwd = "pilar", 
                               database = "database1")
-
 def consultar_personas(): 
     cur = cnn.cursor() 
     cur.execute("select * from personas") 
