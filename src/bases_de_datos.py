@@ -3,6 +3,7 @@ cnn = mysql.connector.connect(host = "localhost",
                               user = "pilar", 
                               passwd = "pilar", 
                               database = "database1")
+
 def consultar_personas(): 
     cur = cnn.cursor() 
     cur.execute("select * from personas") 
@@ -22,7 +23,11 @@ def insertar_nueva_persona(nombre, cedula, telefono):
 def crear_menu():
     while True:
         
-        menu = int(input("Usted tiene el siguiente menu \n1 para agrepar persona \n2 para mostrar personas \n0 para salir \nEscriba una opcion: "))
+        menu = int(input("""Usted tiene el siguiente menu 
+        \n1 para agrepar persona 
+        \n2 para mostrar personas 
+        \n0 para salir 
+        \nEscriba una opcion: """))
         
         if menu == 1:
             nombre = input("Ingrese el nombre de la persona:")
@@ -36,4 +41,5 @@ def crear_menu():
             
         if menu == 0:
             break
+            
 crear_menu()
