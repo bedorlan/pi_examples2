@@ -24,10 +24,10 @@ def crear_menu():
     while True:
         
         menu = int(input("""Usted tiene el siguiente menu 
-        \n1 para agrepar persona 
-        \n2 para mostrar personas 
-        \n0 para salir 
-        \nEscriba una opcion: """))
+        1 para agrepar persona 
+        2 para mostrar personas 
+        0 para salir 
+        Escriba una opcion: """))
         
         if menu == 1:
             nombre = input("Ingrese el nombre de la persona:")
