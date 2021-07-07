@@ -2,42 +2,35 @@ from flask import Flask, Response
 import json
 import mysql.connector
 
-
 cnn = mysql.connector.connect(host = "localhost", 
                               user = "pilar", 
                               passwd = "pilar", 
                               database = "database1")
 
-
-
-def consultar_personas(): 
+def consult_people(): 
     cur = cnn.cursor() 
     cur.execute("select * from personas") 
-    datos = cur.fetchall()
+    data = cur.fetchall()
      
-    archivo = []
-    for fila in datos:
-        lista = []
-        for i in fila:
-            lista.append(i)
-        archivo.append(lista)
-    return(archivo)
+    file = []
+    for row in data:
+        list = []
+        for i in row:
+            list.append(i)
+        file.append(list)
+    return(file)
         
-       
-
-def convertir_a_diccionario(archivo): 
+def convert_to_dictionary(file): 
     
-    lista = []
-    for i in archivo:
-        diccionario = {}  
-        diccionario["nombre"] = i[0]
-        diccionario["cedula"] = i[1]
-        diccionario["telefono"] = i[2]
-        lista.append(diccionario)
+    list = []
+    for i in file:
+        dictionary = {}  
+        dictionary["nombre"] = i[0]
+        dictionary["cedula"] = i[1]
+        dictionary["telefono"] = i[2]
+        list.append(dictionary)
         
-    return lista
-        
-     
+    return list
 
 app = Flask(__name__)
 
@@ -47,11 +40,9 @@ def Index():
 
 @app.route("/persons")
 def persons():
-    archivo = convertir_a_diccionario(consultar_personas())
-    return Response(json.dumps(archivo), mimetype='application/json')
+    file = convert_to_dictionary(consult_people())
+    return Response(json.dumps(file), mimetype='application/json')
     
-
-
 @app.route("/api2")
 def Api2():
     dict1 = {"prop1": "pilar", "prop2": "orlando"}
