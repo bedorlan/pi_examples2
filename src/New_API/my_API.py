@@ -42,7 +42,7 @@ def query_donations():
     return(file)
 
 
-def convert_to_dictionary(file):
+def convert_to_dictionary_people(file):
 
     list = []
     for i in file:
@@ -55,7 +55,7 @@ def convert_to_dictionary(file):
     return list
 
 
-def convert_to_dictionary1(file):
+def convert_to_dictionary_donations(file):
 
     list = []
     for i in file:
@@ -78,13 +78,13 @@ def Index():
 
 @app.route("/persons")
 def persons():
-    file = convert_to_dictionary(query_people())
+    file = convert_to_dictionary_people(query_people())
     return Response(json.dumps(file), mimetype='application/json')
 
 
 @app.route("/donations")
 def donations():
-    file = convert_to_dictionary1(query_donations())
+    file = convert_to_dictionary_donations(query_donations())
     return Response(json.dumps(file), mimetype='application/json')
 
 
