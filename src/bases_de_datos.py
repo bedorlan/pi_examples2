@@ -5,34 +5,34 @@ cnn = mysql.connector.connect(host="localhost",
                               database="database1")
 
 
-def consultar_personas():
+def query_person():
     cur = cnn.cursor()
     cur.execute("select * from personas")
-    datos = cur.fetchall()
+    data = cur.fetchall()
 
-    for fila in datos:
-        print(fila)
+    for row in data:
+        print(row)
 
 
-def insertar_nueva_persona(nombre, cedula, telefono):
+def insert_new_person(nombre, cedula, telefono):
     cur = cnn.cursor()
     sql = """insert into personas (nombre,cedula,telefono)   
     values (%s, %s, %s)"""
-    datos = (nombre, cedula, telefono)
-    cur.execute(sql, datos)
+    data = (nombre, cedula, telefono)
+    cur.execute(sql, data)
     cnn.commit()
 
 
-def insertar_donaciones(cedula, valor, fecha):
+def insert_donations(cedula, valor, fecha):
     cur = cnn.cursor()
     sql = """insert into donaciones (cedula,valor,fecha)
         values (%s, %s, %s)"""
-    datos = (cedula, valor, fecha)
-    cur.execute(sql, datos)
+    data = (cedula, valor, fecha)
+    cur.execute(sql, data)
     cnn.commit()
 
 
-def consultar_donaciones():
+def query_donations():
     cur = cnn.cursor()
     cur.execute(
         """select personas.nombre, personas.cedula, sum(donaciones.valor) total_donaciones 
@@ -40,12 +40,12 @@ def consultar_donaciones():
         where personas.cedula = donaciones.cedula 
         group by personas.cedula, personas.nombre"""
     )
-    datos = cur.fetchall()
-    for fila in datos:
-        print(fila)
+    data = cur.fetchall()
+    for row in data:
+        print(row)
 
 
-def crear_menu():
+def create_menu():
     while True:
 
         menu = int(input("""Usted tiene el siguiente menu 
@@ -61,7 +61,7 @@ def crear_menu():
             cedula = input("Ingrese la cedula: ")
             telefono = input("Ingrese el telefono: ")
             try:
-                insertar_nueva_persona(nombre, cedula, telefono)
+                insert_new_person(nombre, cedula, telefono)
                 print("Se ha agregado los cambios exitosamente")
 
             except:
@@ -69,14 +69,14 @@ def crear_menu():
                 break
 
         if menu == 2:
-            consultar_personas()
+            query_person()
 
         if menu == 3:
             cedula = input("Ingrese la cedula: ")
             valor = int(input("Ingrese el valor de la donacion: "))
             fecha = input("Ingrese la fecha de la donacion A/M/D: ")
             try:
-                insertar_donaciones(cedula, valor, fecha)
+                insert_donations(cedula, valor, fecha)
                 print("Se ha agregado los cambios exitosamente")
 
             except:
@@ -84,10 +84,10 @@ def crear_menu():
                 break
 
         if menu == 4:
-            consultar_donaciones()
+            query_donations()
 
         if menu == 0:
             break
 
 
-crear_menu()
+create_menu()
